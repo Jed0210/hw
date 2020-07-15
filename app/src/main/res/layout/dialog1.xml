@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:orientation="vertical">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:text="轉讓點數"
+            android:textSize="25dp"/>
+
+        <EditText
+            android:id="@+id/username"
+            android:background="@drawable/shape_circle"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="10dp"
+            android:maxLength="10"
+            android:hint="請 輸 入 轉 讓 點 數"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/shape_circle"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:maxLength="10"
+            android:hint=" 請 輸 入 手 機 號 碼"
+            android:textSize="15dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/cancel"
+                    android:onClick="cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="取消"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/next"
+                    android:onClick="next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下一步"
+                    android:layout_weight="1"/>
+                </LinearLayout>
+
+</LinearLayout>
