@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Function"
     android:orientation="vertical">
 
     <TextView
@@ -15,7 +14,7 @@
         android:text="提醒"
         android:textSize="20dp"
         android:background="#e0eee8"/>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080" />
@@ -27,7 +26,7 @@
         android:paddingLeft="20dp"
         android:text="訊息提示聲音音量"
         android:textSize="20dp"/>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080"
@@ -40,7 +39,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080"
@@ -65,7 +64,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="280dp" />
 </LinearLayout>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080" />
@@ -88,7 +87,7 @@
 
 
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080" />
@@ -100,7 +99,7 @@
         android:text="基本資料"
         android:textSize="20dp"
         android:background="#e0eee8"/>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080" />
@@ -112,7 +111,7 @@
         android:text="密碼變更"
         android:textSize="20dp"
         android:background="#e0eee8"/>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080" />
@@ -137,7 +136,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="80dp" />
     </LinearLayout>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#808080" />

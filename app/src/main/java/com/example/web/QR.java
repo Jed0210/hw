@@ -1,51 +1,69 @@
 package com.example.web;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
-public class QR extends AppCompatActivity {
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-    @Override
+public class QR extends FragmentActivity {
+
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.scanner:
+                    loadFragment(new Scanner());
+                    return true;
+                case R.id.produce:
+                    loadFragment(new Generator());
+                    return true;
+                case R.id.open:
+                    loadFragment(new showQR());
+                    return true;
+            }
+            return false;
+        }
+    };
+
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcode);
 
-        Button nextPageBtn = findViewById(R.id.open);
-        nextPageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(QR.this, Scanner.class);
-                startActivity(intent);
-            }
-        });
-
-        Button nextPageBtn2 = findViewById(R.id.show);
-        nextPageBtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(QR.this, showQR.class);
-                startActivity(intent);
 
 
-            }
-        });
-
-        Button  nextPageBtn3 = findViewById(R.id.produce);
-        nextPageBtn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(QR.this, Generator.class);
-                startActivity(intent);
+            BottomNavigationView navigation = findViewById(R.id.navigation);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        }
 
 
-            }
-        });
-    }
+public  void loadFragment(Fragment fragment){
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction transaction = fragmentManager.beginTransaction();
+    transaction.replace(R.id.frameLayout,fragment);
+    transaction.addToBackStack(null);
+    transaction.setCustomAnimations(android.R.animator.fade_in,android.R.animator.fade_out);
+    transaction.commit();
+
 }
+
+
+}
+
+
+

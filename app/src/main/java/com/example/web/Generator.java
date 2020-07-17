@@ -1,10 +1,14 @@
 package com.example.web;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,22 +17,29 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-public class Generator extends AppCompatActivity implements View.OnClickListener{
+public class Generator extends Fragment implements View.OnClickListener{
 
+    public ImageView ivCode;
+    public EditText etContent;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.generator);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.generator,container,false);
 
+        ImageView ivCode=(ImageView)view.findViewById(R.id.imageView);
+        EditText etContent=(EditText)view.findViewById(R.id.editText);
 
-        Button btn=(Button)findViewById(R.id.produce);
+        Button btn=(Button)view.findViewById(R.id.produce);
         btn.setOnClickListener(this);
-    }
+
+            return view;
+        }
 
 
-    public void getCode(){
-        ImageView ivCode=(ImageView)findViewById(R.id.imageView);
-        EditText etContent=(EditText)findViewById(R.id.editText);
+
+        public void getCode(){
+
         BarcodeEncoder encoder = new BarcodeEncoder();
         try{
             Bitmap bit = encoder.encodeBitmap(etContent.getText()

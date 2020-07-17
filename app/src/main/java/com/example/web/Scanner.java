@@ -1,15 +1,20 @@
 package com.example.web;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -19,31 +24,41 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public class Scanner extends AppCompatActivity {
+
+
+
+
+public class Scanner extends Fragment {
+
 
     SurfaceView surfaceView;
     TextView textView;
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.scanner);
+
+
+
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.scanner,container,false);
+
+
+
 
         getPermissonsCamera();
 
-        surfaceView=(SurfaceView)findViewById(R.id.surfaceView);
-        textView=(TextView)findViewById(R.id.textView);
+        surfaceView=(SurfaceView)view.findViewById(R.id.surfaceView);
+        textView=(TextView)view.findViewById(R.id.textView);
 
-        barcodeDetector = new BarcodeDetector.Builder(this)
+        barcodeDetector = new BarcodeDetector.Builder(getActivity())
                 .setBarcodeFormats(Barcode.QR_CODE).build();
-        cameraSource=new CameraSource.Builder(this,barcodeDetector)
+        cameraSource=new CameraSource.Builder(getActivity(),barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
                     @Override
                   public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-                      if(ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.CAMERA)
+                      if(ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA)
                         !=PackageManager.PERMISSION_GRANTED)
                            return;
                         try{
@@ -84,16 +99,21 @@ public class Scanner extends AppCompatActivity {
                 }
             }
         });
-    }
+
+
+            return view;
+        }
+
+
 
 
     public void getPermissonsCamera() {
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
 
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
 
         }
 

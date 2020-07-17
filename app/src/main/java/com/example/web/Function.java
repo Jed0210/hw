@@ -8,9 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 
@@ -18,7 +16,8 @@ public class Function extends AppCompatActivity {
 
     public AudioManager am ;
     public SeekBar seekbar;
-    private VolumeReceiver receiver;
+    public VolumeReceiver receiver;
+
 
 
     @Override
@@ -26,7 +25,7 @@ public class Function extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.function);
 
-       
+
         seekbar = findViewById(R.id.seekbar);
 
          am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -76,10 +75,11 @@ public class Function extends AppCompatActivity {
 
 
 
-        @Override
-        protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver); }
-        }
+        unregisterReceiver(receiver);
+    }
+}
 
  
