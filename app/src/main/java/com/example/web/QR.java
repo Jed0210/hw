@@ -27,13 +27,13 @@ public class QR extends FragmentActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.scanner:
-                    loadFragment(new Scanner());
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new Scanner()).commit();
                     return true;
                 case R.id.produce:
-                    loadFragment(new Generator());
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new Generator()).commit();
                     return true;
                 case R.id.open:
-                    loadFragment(new showQR());
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new showQR()).commit();
                     return true;
             }
             return false;
@@ -45,25 +45,22 @@ public class QR extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcode);
 
-
+            setMain();
 
             BottomNavigationView navigation = findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         }
 
 
-public  void loadFragment(Fragment fragment){
-    FragmentManager fragmentManager = getSupportFragmentManager();
-    FragmentTransaction transaction = fragmentManager.beginTransaction();
-    transaction.replace(R.id.frameLayout,fragment);
-    transaction.addToBackStack(null);
-    transaction.setCustomAnimations(android.R.animator.fade_in,android.R.animator.fade_out);
-    transaction.commit();
+private void setMain() {
+    //getSupportFragmentManager() -> beginTransaction() -> add -> (R.id.main_boy, new Fragment()
+    this.getSupportFragmentManager().beginTransaction().add(R.id.frameLayout,new Scanner()).commit();
+}
 
 }
 
 
-}
+
 
 
 

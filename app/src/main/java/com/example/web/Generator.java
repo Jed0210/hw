@@ -21,14 +21,14 @@ public class Generator extends Fragment implements View.OnClickListener{
 
     public ImageView ivCode;
     public EditText etContent;
+    public View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.generator,container,false);
+        view=View.inflate(getActivity(),R.layout.generator,null);
 
-        ImageView ivCode=(ImageView)view.findViewById(R.id.imageView);
-        EditText etContent=(EditText)view.findViewById(R.id.editText);
+
 
         Button btn=(Button)view.findViewById(R.id.produce);
         btn.setOnClickListener(this);
@@ -40,7 +40,11 @@ public class Generator extends Fragment implements View.OnClickListener{
 
         public void getCode(){
 
-        BarcodeEncoder encoder = new BarcodeEncoder();
+
+            ImageView ivCode=(ImageView)view.findViewById(R.id.imageView);
+            EditText etContent=(EditText)view.findViewById(R.id.editText);
+
+            BarcodeEncoder encoder = new BarcodeEncoder();
         try{
             Bitmap bit = encoder.encodeBitmap(etContent.getText()
                     .toString(), BarcodeFormat.QR_CODE,250,250);

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".signup">
+    android:orientation="vertical">
 
     <ImageView
         android:layout_marginTop="30dp"
@@ -35,8 +34,9 @@
             android:textSize="15dp" />
 
 
-        <Spinner
+         <Spinner
             android:id="@+id/spinner"
+            android:spinnerMode="dropdown"
             android:layout_width="170dp"
             android:layout_height="20dp"
             android:background="@drawable/shape"
@@ -91,6 +91,7 @@
             android:layout_height="20dp"></TextView>
 
         <EditText
+            android:id="@+id/mail"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
@@ -176,6 +177,7 @@
             android:textColor="#ffffff"
             android:textSize="15dp"/>
         <EditText
+            android:id="@+id/code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="請輸入四碼"
@@ -212,6 +214,7 @@
 
         <Button
             android:id="@+id/signup"
+            android:onClick="signup"
             android:background="@drawable/shape_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

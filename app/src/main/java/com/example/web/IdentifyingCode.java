@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.util.Random;
-
+import
+java.util.Random;
 public class IdentifyingCode {
     //隨機數數組，驗證碼上的數字和字母
     private static final char[] CHARS = {
@@ -38,7 +38,7 @@ public class IdentifyingCode {
     //padding，其中base的意思是初始值，而range是變化範圍。數值根據自己想要的大小來設置
     private static final int BASE_PADDING_LEFT = 10, RANGE_PADDING_LEFT = 100, BASE_PADDING_TOP = 75, RANGE_PADDING_TOP = 50;
     //驗證碼默認寬高
-    private static final int DEFAULT_WIDTH = 400, DEFAULT_HEIGHT = 150;
+    private static final int DEFAULT_WIDTH = 450, DEFAULT_HEIGHT = 150;
 
     //畫布的長寬
     private int width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
