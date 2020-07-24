@@ -26,7 +26,6 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 init();
-
         identifyingCode = (ImageView) findViewById(R.id.identifyingcode_image);
         identifyingCode.setOnClickListener(this);
 

@@ -70,7 +70,7 @@ public class IdentifyingCode {
         paint.setAntiAlias(true);
         paint.setTextSize(font_size);
         //在畫布上畫上驗證碼
-//        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
         for (int i = 0; i < code.length(); i++) {
             randomTextStyle(paint);
             randomPadding();

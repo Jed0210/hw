@@ -3,12 +3,15 @@
 
     <item
         android:id="@+id/scanner"
+        android:icon="@drawable/common_google_signin_btn_text_light_normal"
         android:title="掃描" />
     <item
         android:id="@+id/produce"
+        android:icon="@drawable/common_google_signin_btn_text_light_normal"
         android:title="產生器"/>
     <item
         android:id="@+id/open"
+        android:icon="@drawable/common_google_signin_btn_text_light_normal"
         android:title="開啟條碼"/>
 
 
