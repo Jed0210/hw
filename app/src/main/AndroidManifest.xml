@@ -3,6 +3,7 @@
     package="com.example.web">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +20,7 @@
         <activity android:name=".QR" />
         <activity android:name=".Menu" />
         <activity android:name=".Login" />
-        <activity android:name=".signup">
+        <activity android:name=".signup_MainAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,7 +8,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.SeekBar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 
@@ -17,7 +24,6 @@ public class Function extends AppCompatActivity {
     public AudioManager am ;
     public SeekBar seekbar;
     public VolumeReceiver receiver;
-
 
 
     @Override
@@ -60,6 +66,37 @@ public class Function extends AppCompatActivity {
         filter.addAction("android.media.VOLUME_CHANGED_ACTION") ;
         registerReceiver(receiver, filter) ;
 
+
+
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://jsonplaceholder.typicode.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Post.FakeAPIService fakeAPIService = retrofit.create(Post.FakeAPIService.class);
+
+//宣告 Call 連線服務
+        Call<Post> call = fakeAPIService.getPost();
+
+//執行連線服務，透過 Callback 來等待回傳成功或失敗的資料
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                // 連線成功，透過 getter 取得特定欄位資料
+                Log.d("HKT", "id: " + response.body().getId());
+                Log.d("HKT", "title: " + response.body().getTitle());
+                Log.d("HKT", "body: " + response.body().getBody());
+                Log.d("HKT", "userId: " + response.body().getUserId());
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                // 連線失敗，印出錯誤訊息
+                Log.d("HKT", "response: " + t.toString());
+            }
+        });
     }
 
 

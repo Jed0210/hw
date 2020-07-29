@@ -25,7 +25,7 @@ public class Login extends AppCompatActivity {
     private ImageView identifyingCode;
     private String realCode;
     private EditText account,password,code;
-    private CheckBox remember;
+    public CheckBox remember;
 
     private String Account,Mail,Password,Account2,Password2 ;
 
@@ -50,10 +50,11 @@ public class Login extends AppCompatActivity {
                 Account2=account.getText().toString().trim();
                 Password2=password.getText().toString().trim();
 
-                Bundle bundle = getIntent().getExtras();
-                Account=bundle.getString("帳號");
-                Mail=bundle.getString("信箱");
-                Password=bundle.getString("密碼");
+                SharedPreferences user =getSharedPreferences("signup",MODE_PRIVATE);
+                Account=user.getString("account","");
+                Password=user.getString("password","");
+                Mail=user.getString("mail","");
+
 
                 if (TextUtils.isEmpty(Account2)){
                     Toast.makeText(Login.this, "請輸入帳號或信箱", Toast.LENGTH_SHORT).show();
@@ -100,28 +101,31 @@ public class Login extends AppCompatActivity {
     private void input() {
 
 
-        SharedPreferences user = getSharedPreferences("test", MODE_PRIVATE);
+        SharedPreferences user = getSharedPreferences("remember", MODE_PRIVATE);
         SharedPreferences.Editor edit = user.edit();
             if (remember.isChecked()) {
-                edit.putString("account", account.getText().toString());
-                edit.putString("password", password.getText().toString());
+                edit.putString("account2",account.getText().toString());
+                edit.putString("password2",password.getText().toString());
                 edit.putBoolean("remember",true);
+
             } else {
-                edit.clear();
+                edit.remove("account2");
+                edit.remove("password2");
+                edit.putBoolean("remember",false);
             }
                 edit.commit();
             }
 
 
     private void output(){
-        SharedPreferences user =getSharedPreferences("test",MODE_PRIVATE);
-        String account1=user.getString("account","");
-        String password1=user.getString("password","");
-        boolean remember1=user.getBoolean("remember",false);
+        SharedPreferences user =getSharedPreferences("remember",MODE_PRIVATE);
+        String account2=user.getString("account2","");
+        String password2=user.getString("password2","");
+        boolean remember2=user.getBoolean("remember",false);
 
-        account.setText(account1);
-        password.setText(password1);
-        remember.setChecked(remember1);
+        account.setText(account2);
+        password.setText(password2);
+        remember.setChecked(remember2);
 
     }
 

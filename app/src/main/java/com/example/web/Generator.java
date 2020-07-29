@@ -38,7 +38,7 @@ public class Generator extends Fragment implements View.OnClickListener{
 
 
 
-        public void getCode(){
+    public void getCode(){
 
 
             ImageView ivCode=(ImageView)view.findViewById(R.id.imageView);

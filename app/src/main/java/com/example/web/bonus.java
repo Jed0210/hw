@@ -14,15 +14,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -30,11 +31,11 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
 
     Dialog dialog;
     Dialog dialog2;
-    Button dia;
+    Button dia,add;
     RecyclerView recyclerView;
     RecycleViewAdapter adapter;
     String[] city = {"台中", "台北", "台南", "台東", "高雄", "嘉義", "雲林", "花蓮", "苗栗", "新竹", "彰化"};
-    ArrayList<String> arrayList = new ArrayList<>();
+    ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,10 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
 
         dia = (Button) findViewById(R.id.dia);
         dia.setOnClickListener(this);
+        add = (Button) findViewById(R.id.add);
+        add.setOnClickListener(this);
 
+        arrayList = new ArrayList<>();
         for (int i = 0; i < city.length; i++) {
             arrayList.add(city[i]);
         }
@@ -52,9 +56,9 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        adapter = new RecycleViewAdapter();
+        adapter = new RecycleViewAdapter(this,arrayList);
         recyclerView.setAdapter(adapter);
-        recyclerviewAction(recyclerView, arrayList, adapter);
+        adapter.recyclerviewAction(recyclerView, arrayList, adapter);
     }
 
     @Override
@@ -63,8 +67,12 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
             case R.id.dia:
                 dialog1();
                 break;
-
+            case R.id.add:
+                adapter.addData(arrayList.size());
+                break;
         }
+
+
     }
 
 
@@ -122,87 +130,8 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    private class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView text;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                text = itemView.findViewById(R.id.animal);
-            }
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.text.setText(arrayList.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return arrayList.size();
-        }
-
-
-    }
-
-
-    private void recyclerviewAction(RecyclerView recyclerView, final ArrayList<String> choose, final RecycleViewAdapter adapter) {
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                int position_dragged = viewHolder.getAdapterPosition();
-                int position_target = target.getAdapterPosition();
-                Collections.swap(choose, position_dragged, position_target);
-                adapter.notifyItemMoved(position_dragged, position_target);
-
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-                switch (direction) {
-                    case ItemTouchHelper.LEFT:
-
-                    case ItemTouchHelper.RIGHT:
-                        choose.remove(position);
-                        adapter.notifyItemRemoved(position);
-                        break;
-                }
-            }
-
-            @Override
-            public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                new RecyclerViewSwipeDecorator.Builder(c,recyclerView,viewHolder,dX,dY,actionState,isCurrentlyActive)
-                        .addBackgroundColor(ContextCompat.getColor(bonus.this,android.R.color.holo_red_dark))
-                        .addActionIcon(R.drawable.delete)
-                        .create()
-                        .decorate();
-
-
-                super.onChildDrawOver(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            }
-        });
-        helper.attachToRecyclerView(recyclerView);
-    }
-
-
-
-
-    }
+}
 
 
 
