@@ -1,7 +1,6 @@
-package com.example.web;
+package com.example.myApp1;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;

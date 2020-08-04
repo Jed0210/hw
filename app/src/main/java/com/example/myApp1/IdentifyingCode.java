@@ -1,11 +1,9 @@
-package com.example.web;
+package com.example.myApp1;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.View;
-import android.widget.ImageView;
 
 import
 java.util.Random;

@@ -60,4 +60,21 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     //https://tw-hkt.blogspot.com/2020/03/retrofit-java.html
+
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    //https://thumbb13555.pixnet.net/blog/post/317439792-android_studio_sqlite_stetho
+
+
+
+    
+    def room_version = "2.2.5"
+    def lifecycle_version = "2.2.0"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    implementation 'com.facebook.stetho:stetho:1.5.1'
 }

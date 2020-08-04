@@ -1,10 +1,12 @@
-package com.example.web;
+package com.example.myApp1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.example.room.DataBase;
+import com.example.room.MyData;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,108 +28,138 @@ import java.util.List;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>  {
-    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
-    private LayoutInflater Inflater;
-    private List<String> ArrayList;
 
-    public RecycleViewAdapter(Context context,List<String> arrayList) {
-        this.Inflater = LayoutInflater.from(context);
-        this.ArrayList = arrayList;
+    private Activity activity;
+    private List<MyData> myData;
+    private OnItemClickListener onItemClickListener;
+
+
+
+    public RecycleViewAdapter(Activity activity, List<MyData> myData) {
+        this.activity = activity;
+        this.myData = myData;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView text;
-
-        private Button delete, show;
         private SwipeRevealLayout swipeRevealLayout;
-
-
+        View view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            view = itemView;
             text = itemView.findViewById(R.id.textView);
-            delete = itemView.findViewById(R.id.delete);
-            show = itemView.findViewById(R.id.show);
             swipeRevealLayout = itemView.findViewById(R.id.swipeLayout);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "縣市" + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
+
+
+    public void refreshView() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                List<MyData> data = DataBase.getInstance(activity).getDataUao().displayAll();
+                myData = data;
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        }).start();
+    }
+
+
+    public void deleteData (int position) {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                DataBase.getInstance(activity).getDataUao().deleteData(myData.get(position).getId());
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyItemRemoved(position);
+                        refreshView();
+                    }
+                });
+                }
+            }).start();
+    }
+
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = Inflater.inflate(R.layout.recyclerview_swaier, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        holder.text.setText(ArrayList.get(position));
-        viewBinderHelper.setOpenOnlyOne(true);//設置swipe只能有一個item被拉出
-        viewBinderHelper.bind(holder.swipeRevealLayout, String.valueOf(position));//綁定Layout
-
-        holder.delete.setOnClickListener(new View.OnClickListener() {
+        holder.text.setText(myData.get(position).getName());
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.swipeRevealLayout.close(true);
-                ArrayList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position,ArrayList.size());
-
+                onItemClickListener.onItemClick(myData.get(position));
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return ArrayList.size();
-    }
+        return myData.size(); }
 
-    //  添加数据
-    public void addData(int position) {
-        ArrayList.add(position, "練習新增" + (position+1));
-        notifyItemInserted(position);
-    }
+    public interface OnItemClickListener {
+        void onItemClick(MyData myData);}
 
 
 
 
 
-    public void recyclerviewAction(RecyclerView recyclerView, final ArrayList<String> choose, final RecycleViewAdapter adapter) {
+
+
+    public void recyclerviewAction(RecyclerView recyclerView) {
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
+                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
             }
 
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                int position_dragged = viewHolder.getAdapterPosition();
-                int position_target = target.getAdapterPosition();
-                Collections.swap(choose, position_dragged, position_target);
-                adapter.notifyItemMoved(position_dragged, position_target);
 
                 return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+                int position = viewHolder.getAdapterPosition();
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+                        deleteData(position);
+                        break;
+                    case ItemTouchHelper.RIGHT:
+                        deleteData(position);
+                        break;
+                }
             }
 
             @Override
             public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addBackgroundColor(ContextCompat.getColor(Inflater.getContext(), android.R.color.holo_red_dark))
+                        .addBackgroundColor(ContextCompat.getColor(activity, android.R.color.holo_red_dark))
                         .addActionIcon(R.drawable.delete)
                         .create()
                         .decorate();

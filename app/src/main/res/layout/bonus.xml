@@ -6,16 +6,49 @@
     android:layout_height="match_parent"
     tools:context="bonus"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="name"/>
+        <EditText
+            android:id="@+id/Phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="phone"/>
+        <EditText
+            android:id="@+id/Hobby"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hobby"/>
+        <EditText
+            android:id="@+id/Else"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="else"/>
+    </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <Button
-        android:id="@+id/add"
+    android:id="@+id/add"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="新增"
+    android:textSize="18dp"
+    />
+    <Button
+        android:id="@+id/revisef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="新增項目"
+        android:text="修改"
         android:textSize="18dp"
         />
     <Button
