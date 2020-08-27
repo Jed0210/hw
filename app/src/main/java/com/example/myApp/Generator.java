@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.myApp1.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
@@ -25,7 +26,7 @@ public class Generator extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view=View.inflate(getActivity(),R.layout.generator,null);
+        view=View.inflate(getActivity(), R.layout.generator,null);
 
 
 

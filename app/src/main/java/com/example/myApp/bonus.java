@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -7,24 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.myApp1.R;
 import com.example.room.DataBase;
 import com.example.room.MyData;
 import com.facebook.stetho.Stetho;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class bonus extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,7 +34,7 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bonus);
-    //retrofit();
+
 
         Stetho.initializeWithDefaults(this);//chrome://inspect/#devices
 
@@ -62,7 +54,7 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         //recyclerView.setAdapter(adapter);
         //adapter.recyclerviewAction(recyclerView, arrayList, adapter);
 
-        new Thread(new Runnable() {
+       new Thread(new Runnable() {
             @Override
             public void run() {
                 List<MyData> data = DataBase.getInstance(bonus.this).getDataUao().displayAll();
@@ -86,7 +78,8 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
                 });
 
             }
-        }).start();
+        }) .start();
+
     }
 
     @Override
@@ -105,7 +98,11 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
                         String hobby = Hobby.getText().toString();
                         String elseInfo = Else.getText().toString();
                         if (name.length() == 0) return;//如果名字欄沒填入任何東西，則不執行下面的程序
-                        MyData data = new MyData(name, phone, hobby, elseInfo);
+                        MyData data = new MyData();
+                        data.setName(name);
+                        data.setPhone(phone);
+                        data.setHobby(hobby);
+                        data.setElseInfo(elseInfo);
                         DataBase.getInstance(bonus.this).getDataUao().insertData(data);
                         runOnUiThread(new Runnable() {
                            @Override
@@ -131,13 +128,35 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         View v = getLayoutInflater().inflate(R.layout.dialog1, null);
         dialog.setContentView(v);
         dialog.setCancelable(false);
-
         dialog.show();
 
         Button next = v.findViewById(R.id.next);
+        EditText Name = v.findViewById(R.id.name);
+        EditText Phone = v.findViewById(R.id.phone);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String name = Name.getText().toString();
+                        String phone = Phone.getText().toString();
+
+                        if (name.length() == 0) return;//如果名字欄沒填入任何東西，則不執行下面的程序
+                        MyData data = new MyData();
+                        data.setName(name);
+                        data.setPhone(phone);
+                        DataBase.getInstance(bonus.this).getDataUao().insertData(data);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.refreshView();
+                            }
+                        });
+
+                    }
+                }).start();
+
                 dialog2();
             }
         });
@@ -170,9 +189,31 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         });
 
         Button send = v.findViewById(R.id.send);
+        EditText Hobby=v.findViewById(R.id.hobby);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String hobby = Hobby.getText().toString();
+
+
+                            MyData data = new MyData();
+                            data.setHobby(hobby);
+                            DataBase.getInstance(bonus.this).getDataUao().insertData(data);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter.refreshView();
+                                }
+                            });
+
+
+                        }
+                    }).start();
+
                 dialog2.dismiss();
                 dialog.dismiss();
             }
@@ -185,40 +226,7 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
 
 
 
-    public void retrofit(){
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Post.FakeAPIService fakeAPIService = retrofit.create(Post.FakeAPIService.class);
-
-//宣告 Call 連線服務
-        Call<List<Post>> call = fakeAPIService.getPosts();
-
-//執行連線服務，透過 Callback 來等待回傳成功或失敗的資料
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                // 連線成功，透過 getter 取得特定欄位資料
-
-  List<Post> arrayList = new ArrayList<>();
-
-               for(int i=0 ; i<response.body().size() ; i++)
-               {
-               arrayList.add(response.body().get(i));
-               }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                // 連線失敗，印出錯誤訊息
-                Log.d("HKT", "response: " + t.toString());
-            }
-        });
-    }
 }
 
 

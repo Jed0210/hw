@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu">
+    tools:context="com.example.myApp.Menu">
+
     <ImageButton
         android:id="@+id/qr"
-        android:layout_width="170dp"
-        android:layout_height="148dp"
+        android:layout_width="181dp"
+        android:layout_height="156dp"
         android:background="@drawable/a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,43 +35,44 @@
         android:id="@+id/imageButton6"
         android:layout_width="170dp"
         android:layout_height="99dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="28dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/c"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.958" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton7"
-        android:layout_width="170dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="174dp"
+        android:layout_height="159dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/d"
         app:layout_constraintBottom_toTopOf="@+id/imageButton10"
+        app:layout_constraintEnd_toStartOf="@+id/qr"
+        app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton9" />
 
     <ImageButton
         android:id="@+id/bonus"
-        android:layout_width="170dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="178dp"
+        android:layout_height="157dp"
         android:layout_marginBottom="252dp"
         android:background="@drawable/e"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toEndOf="@+id/imageButton7"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/qr"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/imageButton9"
         android:layout_width="170dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/f"
         app:layout_constraintBottom_toTopOf="@+id/imageButton7"
@@ -78,21 +80,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton10"
-        android:layout_width="170dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/search"
+        android:layout_width="171dp"
+        android:layout_height="246dp"
+        android:layout_marginStart="12dp"
         android:layout_marginBottom="154dp"
         android:background="@drawable/g"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bonus"
+        app:layout_constraintHorizontal_bias="0.192"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton7" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton7"
+        app:layout_constraintVertical_bias="0.642" />
 
     <ImageButton
         android:id="@+id/function"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="155dp"
+        android:layout_width="172dp"
+        android:layout_height="84dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="148dp"
         android:background="@drawable/h"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

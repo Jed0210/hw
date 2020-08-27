@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.myApp1.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class QR extends FragmentActivity {

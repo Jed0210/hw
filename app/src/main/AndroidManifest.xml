@@ -12,15 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.myApp1.Function"></activity>
-        <activity android:name="com.example.myApp1.bonus" />
-        <activity android:name="com.example.myApp1.Generator" />
-        <activity android:name="com.example.myApp1.showQR" />
-        <activity android:name="com.example.myApp1.Scanner" />
-        <activity android:name="com.example.myApp1.QR" />
-        <activity android:name="com.example.myApp1.Menu" />
-        <activity android:name="com.example.myApp1.Login" />
-        <activity android:name="com.example.myApp1.signup_MainAct">
+        <activity android:name="com.example.myApp.Retrofit"></activity>
+        <activity android:name="com.example.myApp.Function" />
+        <activity android:name="com.example.myApp.bonus" />
+        <activity android:name="com.example.myApp.Generator" />
+        <activity android:name="com.example.myApp.showQR" />
+        <activity android:name="com.example.myApp.Scanner" />
+        <activity android:name="com.example.myApp.QR" />
+        <activity android:name="com.example.myApp.Menu" />
+        <activity android:name="com.example.myApp.Login" />
+        <activity android:name="com.example.myApp.signup_MainAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

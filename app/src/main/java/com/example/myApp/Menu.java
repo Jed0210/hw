@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.myApp1.R;
 
 public class Menu extends AppCompatActivity {
 
@@ -24,12 +26,21 @@ public class Menu extends AppCompatActivity {
                 startActivity(intent); }
         });
 
-        ImageButton bouns = findViewById(R.id.bonus);
-        bouns.setOnClickListener(new View.OnClickListener() {
+        ImageButton bonus = findViewById(R.id.bonus);
+        bonus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(Menu.this, bonus.class);
+                startActivity(intent); }
+        });
+
+        ImageButton search = findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(Menu.this, Retrofit.class);
                 startActivity(intent); }
         });
 

@@ -16,9 +16,9 @@ public interface DataUao {
     /**=======================================================================================*/
     /**簡易新增所有資料的方法*/
     @Insert(onConflict = OnConflictStrategy.REPLACE)//預設萬一執行出錯怎麼辦，REPLACE為覆蓋
-    void insertData(MyData myData);
+    void insertData(MyData... myData);
 
-    /**複雜(?)新增所有資料的方法*/
+    /**複雜新增所有資料的方法*/
     @Query("INSERT INTO "+tableName+"(name,phone,hobby,elseInfo) VALUES(:name,:phone,:hobby,:elseData)")
     void insertData(String name,String phone,String hobby,String elseData);
 
@@ -36,7 +36,7 @@ public interface DataUao {
     @Update
     void updateData(MyData myData);
 
-    /**複雜(?)更新資料的方法*/
+    /**複雜更新資料的方法*/
     @Query("UPDATE "+tableName+" SET name = :name,phone=:phone,hobby=:hobby,elseInfo = :elseInfo WHERE id = :id" )
     void updateData(int id,String name,String phone,String hobby,String elseInfo);
 

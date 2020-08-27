@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ public class Post {
     private String title;
     private String body;
     private int userId;
+
+
 
     public int getId() {
         return id;
@@ -48,14 +50,14 @@ public class Post {
 
     public interface FakeAPIService {
         //取得單筆資料
-        @GET("/posts/1") //annotation 註解宣告方式定義 HTTP 連線獲取資料方法與指定API後網址
+        @GET("posts/1") //annotation 註解宣告方式定義 HTTP 連線獲取資料方法與指定API後網址
         Call<Post> getPost();
 
         //取得多筆資料
-        @GET("/posts")
+        @GET("posts")
         Call<List<Post>> getPosts();
     }
-    }
+}
 
 
 

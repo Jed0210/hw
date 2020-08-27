@@ -36,11 +36,8 @@
 
          <Spinner
             android:id="@+id/spinner"
-            android:spinnerMode="dropdown"
             android:layout_width="170dp"
-            android:layout_height="20dp"
-            android:background="@drawable/shape"
-            />
+            android:layout_height="20dp" />
 
 
         <TextView

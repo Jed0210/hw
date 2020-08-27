@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.widget.SeekBar;
+
+import com.example.myApp1.R;
 
 import static android.media.AudioManager.FLAG_PLAY_SOUND;
 

@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.myApp1.R;
 
 
 public class showQR extends Fragment {

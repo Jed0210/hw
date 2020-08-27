@@ -1,4 +1,4 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.myApp1.R;
 
 public class signup_MainAct extends AppCompatActivity implements View.OnClickListener {
     ImageView identifyingCode;

@@ -1,15 +1,11 @@
-package com.example.myApp1;
+package com.example.myApp;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Canvas;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -17,12 +13,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
-import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.example.myApp1.R;
 import com.example.room.DataBase;
 import com.example.room.MyData;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -53,9 +47,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
             text = itemView.findViewById(R.id.textView);
-            swipeRevealLayout = itemView.findViewById(R.id.swipeLayout);
+
 
         }
     }
@@ -80,8 +73,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
 
     public void deleteData (int position) {
-        new Thread(new Runnable() {
 
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 DataBase.getInstance(activity).getDataUao().deleteData(myData.get(position).getId());
@@ -94,21 +87,33 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 });
                 }
             }).start();
+
+
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                DataBase.getInstance(activity).getDataUao().deleteData(myData.get(position).getId());
+//                refreshView();
+//            }
+//        };
+//        Thread thread = new Thread(runnable);
+//        thread.start();
     }
+
 
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_swaier,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull  ViewHolder holder,  int position) {
         holder.text.setText(myData.get(position).getName());
-        holder.view.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onItemClickListener.onItemClick(myData.get(position));
